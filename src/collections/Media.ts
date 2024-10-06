@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { imageKitPlugin, handleImageKitUpload, handleImageKitDelete} from '../imagekitPlugin/index'; // Adjust the import path
+import { handleImageKitUpload, handleImageKitDelete} from '../imagekitPlugin/index'; // Adjust the import path
 import ImageKit from 'imagekit';
 
 export const Media: CollectionConfig = {

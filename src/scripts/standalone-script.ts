@@ -10,7 +10,7 @@ async function run() {
   const payload = await getPayload({ config })
 
   const pages = await payload.find({
-    collection: 'pages',
+    collection: 'media',
   })
 
   console.log(pages)

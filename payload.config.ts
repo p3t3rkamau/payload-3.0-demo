@@ -23,50 +23,16 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
-
+import { Users } from './src/collections/Users'
+import { Media } from './src/collections/Media'
+import { PdfUploads } from './src/collections/PdfUploads'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-
+import { imageKitPlugin } from './src/imagekitPlugin'
 export default buildConfig({
   //editor: slateEditor({}),
   editor: lexicalEditor(),
-  collections: [
-    {
-      slug: 'users',
-      auth: true,
-      access: {
-        delete: () => false,
-        update: () => false,
-      },
-      fields: [],
-    },
-    {
-      slug: 'pages',
-      admin: {
-        useAsTitle: 'title',
-      },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-        },
-        {
-          name: 'content',
-          type: 'richText',
-        },
-      ],
-    },
-    {
-      slug: 'media',
-      upload: true,
-      fields: [
-        {
-          name: 'text',
-          type: 'text',
-        },
-      ],
-    },
-  ],
+  collections: [Users, Media, PdfUploads],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -111,11 +77,15 @@ export default buildConfig({
       })
     }
   },
-  // Sharp is now an optional dependency -
-  // if you want to resize images, crop, set focal point, etc.
-  // make sure to install it and pass it to the config.
-
-  // This is temporary - we may make an adapter pattern
-  // for this before reaching 3.0 stable
+  
   sharp,
+  plugins: [
+    imageKitPlugin({
+      publicKey: process.env.IMAGEKIT_PUBLIC_KEY || '',
+      privateKey: process.env.IMAGEKIT_PRIVATE_KEY || '',
+      urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT || '',
+      folderPath: '/Wcs_Docs',
+    }),
+  ],
+
 })

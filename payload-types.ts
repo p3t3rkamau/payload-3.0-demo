@@ -12,8 +12,8 @@ export interface Config {
   };
   collections: {
     users: User;
-    pages: Page;
     media: Media;
+    Documents: Document;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -64,36 +64,10 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
-export interface Page {
-  id: string;
-  title?: string | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: string;
-  text?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -108,6 +82,23 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Documents".
+ */
+export interface Document {
+  id: string;
+  title: string;
+  date: string;
+  currency: 'USD' | 'EUR' | 'TZS' | 'KES';
+  amount: number;
+  recipient?: string | null;
+  numberOfPages?: number | null;
+  refNo?: string | null;
+  pdfUrlUpload: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -118,22 +109,18 @@ export interface PayloadLockedDocument {
         value: string | User;
       } | null)
     | ({
-        relationTo: 'pages';
-        value: string | Page;
-      } | null)
-    | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'Documents';
+        value: string | Document;
       } | null);
   globalSlug?: string | null;
-  _lastEdited: {
-    user: {
-      relationTo: 'users';
-      value: string | User;
-    };
-    editedAt?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
   };
-  isLocked?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }

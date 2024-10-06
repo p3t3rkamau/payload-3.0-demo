@@ -1,0 +1,85 @@
+.Navcontainer {
+  position: relative;
+  height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #b1afaf;
+  height: 60px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.logo {
+  height: 40px;
+}
+
+.searchIcon {
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 20px;
+  transition: color 0.3s ease-in-out;
+}
+
+.searchIcon:hover {
+  color: #007bff; // Change color on hover
+}
+
+
+
+
+.hiddenAfterTransition {
+  display: none; // Completely hide the element after the transition ends
+}
+
+.heading {
+  font-size: 2.5rem;
+  color: #333;
+  z-index: 1;
+}
+
+.fadedLogo {
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  width: 60%;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.defaultView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease-in-out;
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.visible {
+  display: block;
+}

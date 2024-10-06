@@ -71,6 +71,11 @@ export interface Media {
   imageKitFileId?: string | null;
   altText?: string | null;
   caption?: string | null;
+  imagekit?: {
+    fileId?: string | null;
+    thumbnailUrl?: string | null;
+    url?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
   url?: string | null;

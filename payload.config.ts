@@ -89,10 +89,9 @@ export default buildConfig({
     // }),
     imagekitPlugin({
       config: {
-      publicKey: process.env.IMAGEKIT_PUBLIC_KEY || '',
-      privateKey: process.env.IMAGEKIT_PRIVATE_KEY || '',
-      urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT || '',
-
+        publicKey: process.env.IK_PUBLIC_KEY || '',
+        privateKey: process.env.IK_PRIVATE_KEY || '',
+        endpoint: process.env.IK_ENDPOINT || '',
       },
       collections: {
         media: {

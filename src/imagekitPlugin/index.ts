@@ -10,23 +10,28 @@ interface ImageKitPluginOptions {
 }
 
 // Function to handle file upload to ImageKit with folder path
-const handleImageKitUpload = async (data: any, imageKit: ImageKit, folderPath?: string) => {
+export const handleImageKitUpload = async (data: any, imageKit: ImageKit, folderPath?: string) => {
   if (data.file) {
-    const uploadResponse = await imageKit.upload({
-      file: data.file.data, // Base64 encoded file data
-      fileName: data.file.filename, // Name of the file
-      folder: folderPath || '/', // Use the folder path if provided, otherwise default to root folder
-    });
+    try {
+      const uploadResponse = await imageKit.upload({
+        file: data.file.data, // Base64 encoded file data
+        fileName: data.file.filename, // Name of the file
+        folder: folderPath || '/', // Use the folder path if provided, otherwise default to root folder
+      });
 
-    // Store ImageKit file ID and replace local URL with ImageKit URL
-    data.url = uploadResponse.url;
-    data.imageKitFileId = uploadResponse.fileId; // Store file ID for later deletion
+      // Store ImageKit file URL and file ID
+      data.url = uploadResponse.url;
+      data.imageKitFileId = uploadResponse.fileId; // Store file ID for later deletion
+    } catch (error) {
+      console.error('ImageKit upload failed:', error);
+      throw new Error('Image upload failed.');
+    }
   }
   return data;
 };
 
 // Function to handle file deletion from ImageKit
-const handleImageKitDelete = async (doc: any, imageKit: ImageKit) => {
+export const handleImageKitDelete = async (doc: any, imageKit: ImageKit) => {
   const fileId = doc?.imageKitFileId;
 
   if (fileId) {

@@ -68,6 +68,9 @@ export interface User {
  */
 export interface Media {
   id: string;
+  imageKitFileId?: string | null;
+  altText?: string | null;
+  caption?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

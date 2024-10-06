@@ -29,6 +29,7 @@ import { PdfUploads } from './src/collections/PdfUploads'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 import { imageKitPlugin } from './src/imagekitPlugin'
+import imagekitPlugin from './src/ImageKit_V_001'
 export default buildConfig({
   //editor: slateEditor({}),
   editor: lexicalEditor(),
@@ -78,13 +79,29 @@ export default buildConfig({
     }
   },
   
-  sharp,
+  // sharp,
   plugins: [
-    imageKitPlugin({
+    // imageKitPlugin({
+    //   publicKey: process.env.IMAGEKIT_PUBLIC_KEY || '',
+    //   privateKey: process.env.IMAGEKIT_PRIVATE_KEY || '',
+    //   urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT || '',
+    //   folderPath: '/Wcs_Docs',
+    // }),
+    imagekitPlugin({
+      config: {
       publicKey: process.env.IMAGEKIT_PUBLIC_KEY || '',
       privateKey: process.env.IMAGEKIT_PRIVATE_KEY || '',
       urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT || '',
-      folderPath: '/Wcs_Docs',
+
+      },
+      collections: {
+        media: {
+          uploadOption: {
+            folder: "test",
+          },
+          savedProperties: ["url"],
+        },
+      },
     }),
   ],
 

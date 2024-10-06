@@ -1,4 +1,4 @@
-import { AfterDeleteHook } from "payload";
+import { AfterDeleteHook } from "payload/types";
 import { GROUP_NAME } from "../constants";
 
 import Service from "../service";

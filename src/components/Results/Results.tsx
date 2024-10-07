@@ -9,6 +9,9 @@ interface Document {
   pdfUrlUpload: {
     url: string
   }
+  recipient?: string // Optional field
+  numberOfPages?: number // Optional field
+  refNo?: string // Optional field
 }
 
 interface ResultsProps {
@@ -35,9 +38,12 @@ const Results: React.FC<ResultsProps> = ({ documents, isLoading, error }) => {
       {documents.map((doc) => (
         <div className={styles.document} key={doc.id}>
           <h3>{doc.title}</h3>
-          <p>Amount: {doc.amount}</p>
+          <p>Amount: {doc.amount.toLocaleString()}</p> {/* Format with commas */}
           <p>Currency: {doc.currency}</p>
           <p>Date: {new Date(doc.date).toLocaleDateString()}</p>
+          {doc.recipient && <p>Recipient: {doc.recipient}</p>} {/* Optional recipient */}
+          {doc.refNo && <p>Reference No: {doc.refNo}</p>} {/* Optional refNo */}
+          {doc.numberOfPages !== undefined && <p>Number of Pages: {doc.numberOfPages}</p>} {/* Optional numberOfPages */}
           <a href={doc.pdfUrlUpload.url} target="_blank" rel="noreferrer">
             View PDF
           </a>

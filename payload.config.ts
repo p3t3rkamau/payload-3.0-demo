@@ -29,8 +29,6 @@ import { PdfUploads } from './src/collections/PdfUploads'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 import { imageKitPlugin } from './src/imagekitPlugin'
-import imagekitPlugin from './src/ImageKit_V_001'
-import {uploadthingStorage} from '@payloadcms/storage-uploadthing'
 export default buildConfig({
   //editor: slateEditor({}),
   editor: lexicalEditor(),
@@ -80,17 +78,14 @@ export default buildConfig({
     }
   },
   
-  // sharp,
-    plugins: [
-      uploadthingStorage({
-        collections: {
-          [Media.slug]: true,
-        },
-        options: {
-          apiKey: process.env.UPLOADTHING_SECRET,
-          acl: 'public-read',
-        },
-      }),
-    ],
+  sharp,
+  plugins: [
+    imageKitPlugin({
+      publicKey: process.env.IMAGEKIT_PUBLIC_KEY || '',
+      privateKey: process.env.IMAGEKIT_PRIVATE_KEY || '',
+      urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT || '',
+      folderPath: '/Wcs_Docs',
+    }),
+  ],
 
 })

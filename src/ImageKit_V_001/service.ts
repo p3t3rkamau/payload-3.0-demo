@@ -1,3 +1,4 @@
+// @ts-ignore
 import { UploadedFile } from "express-fileupload";
 import ImageKit from "imagekit";
 import { UploadOptions, UploadResponse } from "imagekit/dist/libs/interfaces";

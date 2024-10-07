@@ -1,4 +1,5 @@
-import { AfterDeleteHook } from "payload/types";
+
+import { CollectionAfterDeleteHook } from "payload";
 import { GROUP_NAME } from "../constants";
 
 import Service from "../service";
@@ -10,7 +11,7 @@ export const getAfterDeleteHooks = (
 ) => {
   const service = new Service(config);
 
-  const deleteAfterDelete: AfterDeleteHook = async ({ doc, req }) => {
+  const deleteAfterDelete: CollectionAfterDeleteHook = async ({ doc, req }) => {
     if (doc[groupName]) {
       try {
         await service.delete(doc[groupName].fileId)

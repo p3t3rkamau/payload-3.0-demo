@@ -1,4 +1,4 @@
-import { AfterDeleteHook,  BeforeChangeHook } from "payload/types";
+import { CollectionAfterDeleteHook,  CollectionBeforeChangeHook } from "payload";
 import { GROUP_NAME } from "../constants";
 import Service from "../service";
 import {
@@ -20,8 +20,9 @@ export const getBeforeChangeHooks = (
 ) => {
 
   const service = new Service(config);
-  const uploadBeforeChange: BeforeChangeHook =
+  const uploadBeforeChange: CollectionBeforeChangeHook =
     async (args) => {
+      // @ts-expect-error
       const file = args.req.files?.file;
 
       const uploadOptions = {

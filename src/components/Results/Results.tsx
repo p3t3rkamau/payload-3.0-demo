@@ -29,13 +29,14 @@ const Results: React.FC<ResultsProps> = ({ documents, isLoading, error }) => {
     return <p className={styles.error}>{error}</p>
   }
 
-  if (documents.length === 0) {
+  if (documents?.length === 0) {
     return <p className={styles.noResults}>No results found.</p>
   }
 
   return (
     <div className={styles.results}>
-      {documents.map((doc) => (
+      {/*  */}
+      {documents?.map((doc) => (
         <div className={styles.document} key={doc.id}>
           <h3>{doc.title}</h3>
           <p>Amount: {doc.amount.toLocaleString()}</p> {/* Format with commas */}

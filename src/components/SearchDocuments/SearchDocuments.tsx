@@ -41,7 +41,7 @@ const SearchDocuments = () => {
 
   useEffect(() => {
     // Default search on load
-    handleSearch('kenya', 'TZS', '01/19/2024', currentPage)
+    handleSearch('', '', '', currentPage)
   }, [currentPage])
 
   return (

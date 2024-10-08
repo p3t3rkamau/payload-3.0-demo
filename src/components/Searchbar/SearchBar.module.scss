@@ -1,34 +1,80 @@
 .form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 20px;
-  
-    input, select {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-      flex: 1;
-    }
-  
-    input[type='date'] {
-      max-width: 200px;
-    }
-  
-    button {
-      padding: 10px 20px;
-      background-color: #0070f3;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-  
-      &:hover {
-        background-color: #005bb5;
-      }
-    }
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; // Make the search bar responsive
+}
+
+.searchBarContainer {
+  position: relative;
+  display: flex;
+  flex-grow: 1; // Make it adjust to screen size
+}
+
+.input {
+  padding: 10px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  font-size: 16px;
+  @media (max-width: 768px) {
+    max-width: 200px; // Adjust width for smaller screens
   }
-  
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdownButton {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  @media (max-width: 768px) {
+    font-size: 14px; // Smaller text on mobile
+  }
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: black;
+  color: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 5px;
+  display: block; // Visible only when dropdownOpen is true
+  z-index: 1;
+}
+
+.dropdownMenu li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdownMenu li:hover {
+  background-color: #444;
+}
+
+.submitButton {
+  padding: 10px;
+  margin-left: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  @media (max-width: 768px) {
+    margin-left: 0; // No margin on mobile for better spacing
+    width: 100%;
+  }
+}
+
+.submitButton:hover {
+  background-color: #45a049;
+}

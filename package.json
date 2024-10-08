@@ -26,7 +26,7 @@
     "@payloadcms/next": "3.0.0-beta.108",
     "@payloadcms/richtext-lexical": "3.0.0-beta.108",
     "@payloadcms/richtext-slate": "3.0.0-beta.108",
-    "@payloadcms/storage-uploadthing": "^3.0.0-beta.30",
+    "@payloadcms/storage-uploadthing": "3.0.0-beta.108",
     "@payloadcms/ui": "3.0.0-beta.108",
     "babel-plugin-react-compiler": "0.0.0-experimental-48eb8f4-20240822",
     "cross-env": "^7.0.3",

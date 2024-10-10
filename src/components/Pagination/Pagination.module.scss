@@ -1,8 +1,15 @@
 .pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-around; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  width: 800px; /* Set width to 800px */
+  margin: 0 auto; /* Center the pagination container */
+  padding: 1rem; /* Padding around the pagination */
+  background-color: #f9f9f9; /* Optional: background color */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
+
+
 
   button {
     padding:

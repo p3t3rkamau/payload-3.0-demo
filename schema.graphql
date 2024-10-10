@@ -520,6 +520,7 @@ type PagesDeleteDocAccess {
 type Media {
   id: String
   text: String
+  imagekit: Media_Imagekit
   updatedAt: DateTime
   createdAt: DateTime
   url: String
@@ -531,6 +532,12 @@ type Media {
   height: Float
   focalX: Float
   focalY: Float
+}
+
+type Media_Imagekit {
+  fileId: String
+  thumbnailUrl: String
+  url: String
 }
 
 type allMedia {
@@ -549,6 +556,10 @@ type allMedia {
 
 input Media_where {
   text: Media_text_operator
+  imagekit__fileId: Media_imagekit__fileId_operator
+  imagekit__thumbnailUrl: Media_imagekit__thumbnailUrl_operator
+  imagekit__url: Media_imagekit__url_operator
+  updatedAt: Media_updatedAt_operator
   updatedAt: Media_updatedAt_operator
   createdAt: Media_createdAt_operator
   url: Media_url_operator
@@ -575,6 +586,51 @@ input Media_text_operator {
   all: [String]
   exists: Boolean
 }
+
+input Media_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Media_imagekit__fileId_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Media_imagekit__thumbnailUrl_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Media_imagekit__url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
 
 input Media_updatedAt_operator {
   equals: DateTime
@@ -704,6 +760,10 @@ input Media_id_operator {
 }
 
 input Media_where_and {
+  alt: Media_alt_operator
+  imagekit__fileId: Media_imagekit__fileId_operator
+  imagekit__thumbnailUrl: Media_imagekit__thumbnailUrl_operator
+  imagekit__url: Media_imagekit__url_operator
   text: Media_text_operator
   updatedAt: Media_updatedAt_operator
   createdAt: Media_createdAt_operator
@@ -723,6 +783,10 @@ input Media_where_and {
 
 input Media_where_or {
   text: Media_text_operator
+   alt: Media_alt_operator
+  imagekit__fileId: Media_imagekit__fileId_operator
+  imagekit__thumbnailUrl: Media_imagekit__thumbnailUrl_operator
+  imagekit__url: Media_imagekit__url_operator
   updatedAt: Media_updatedAt_operator
   createdAt: Media_createdAt_operator
   url: Media_url_operator

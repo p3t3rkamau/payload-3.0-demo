@@ -1,123 +1,101 @@
-import { useState, useEffect, useRef } from 'react';
-import styles from './SearchBar.module.scss';
+import { useState } from 'react'
+import { FaSearch } from 'react-icons/fa' // Import icon for the search button
+import styles from './SearchBar.module.scss'
 
 interface SearchBarProps {
-  onSearch: (filterType: string, value: string) => void;
+  onSearch: (params: {
+    title?: string
+    currency?: string
+    date?: string
+    refNo?: string
+    recipient?: string
+    amount?: string // Include amount for search
+  }) => void
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [filterType, setFilterType] = useState('all');
-  const [searchValue, setSearchValue] = useState('');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchType, setSearchType] = useState('title') // Default to 'title'
+  const [title, setTitle] = useState('')
+  const [currency, setCurrency] = useState('')
+  const [date, setDate] = useState('')
+  const [refNo, setRefNo] = useState('')
+  const [recipient, setRecipient] = useState('')
+  const [amount, setAmount] = useState('') // State for amount
 
-  const dropdownRef = useRef<HTMLDivElement>(null); // Reference for dropdown
+  // Handle form submission
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const params: any = {} // Use any for flexible parameter typing
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    onSearch(filterType, searchValue);
-  };
-
-  const handleClickOutside = (event: MouseEvent) => {
-    // Check if the clicked element is outside the dropdown
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-      setDropdownOpen(false); // Close the dropdown if clicked outside
+    // Include additional parameters based on search type
+    if (searchType === 'title') {
+      params.title = title
+    } else if (searchType === 'currency') {
+      params.currency = currency
+    } else if (searchType === 'date') {
+      params.date = date
+    } else if (searchType === 'refNo') {
+      params.refNo = refNo
+    } else if (searchType === 'recipient') {
+      params.recipient = recipient
+    } else if (searchType === 'amount') {
+      params.amount = amount
     }
-  };
 
-  useEffect(() => {
-    // Add event listener for clicks outside of the dropdown
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const renderInputField = () => {
-    switch (filterType) {
-      case 'date':
-        return (
-          <input
-            type="date"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className={styles.input}
-          />
-        );
-      case 'currency':
-        return (
-          <select
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className={styles.input}
-          >
-            <option value="">Select Currency</option>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="TZS">TZS</option>
-            <option value="KES">KES</option>
-          </select>
-        );
-      case 'refNumber':
-        return (
-          <input
-            type="number"
-            placeholder="Enter Reference Number"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className={styles.input}
-          />
-        );
-      default:
-        return (
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className={styles.input}
-          />
-        );
-    }
-  };
+    onSearch(params) // Pass search values to the parent
+  }
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.searchBarContainer}>
-        {renderInputField()}
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          className={styles.select}
+        >
+          <option value="title">Search by Title</option>
+          <option value="currency">Search by Currency</option>
+          <option value="date">Search by Date</option>
+          <option value="refNo">Search by Reference Number</option>
+          <option value="recipient">Search by Recipient</option>
+          <option value="amount">Search by Amount</option>
+        </select>
 
-        {/* Dropdown for selecting filter type */}
-        <div className={styles.dropdown} ref={dropdownRef}>
-          <button
-            type="button"
-            className={styles.dropdownButton}
-            onClick={() => setDropdownOpen(!dropdownOpen)} // Toggle dropdown on click
-          >
-            {filterType === 'all'
-              ? 'All'
-              : filterType === 'date'
-              ? 'Date'
-              : filterType === 'currency'
-              ? 'Currency'
-              : filterType === 'refNumber'
-              ? 'Ref Number'
-              : 'Filter'}
-          </button>
-          {dropdownOpen && (
-            <ul className={styles.dropdownMenu}>
-              <li onClick={() => { setFilterType('all'); setDropdownOpen(false); }}>All</li>
-              <li onClick={() => { setFilterType('date'); setDropdownOpen(false); }}>Date</li>
-              <li onClick={() => { setFilterType('currency'); setDropdownOpen(false); }}>Currency</li>
-              <li onClick={() => { setFilterType('refNumber'); setDropdownOpen(false); }}>Reference Number</li>
-            </ul>
-          )}
-        </div>
+        <input
+          type={searchType === 'date' ? 'date' : 'text'} // Date input for date search
+          placeholder={`Enter ${searchType === 'date' ? 'Date' : searchType === 'amount' ? 'Amount' : searchType.charAt(0).toUpperCase() + searchType.slice(1)}...`}
+          value={
+            searchType === 'title'
+              ? title
+              : searchType === 'currency'
+                ? currency
+                : searchType === 'date'
+                  ? date
+                  : searchType === 'refNo'
+                    ? refNo
+                    : searchType === 'recipient'
+                      ? recipient
+                      : searchType === 'amount'
+                        ? amount
+                        : ''
+          }
+          onChange={(e) => {
+            if (searchType === 'title') setTitle(e.target.value)
+            else if (searchType === 'currency') setCurrency(e.target.value)
+            else if (searchType === 'date') setDate(e.target.value)
+            else if (searchType === 'refNo') setRefNo(e.target.value)
+            else if (searchType === 'recipient') setRecipient(e.target.value)
+            else if (searchType === 'amount') setAmount(e.target.value) // Handle amount input
+          }}
+          className={styles.input}
+        />
+
+        <button type="submit" className={styles.submitButton}>
+          <FaSearch />
+        </button>
       </div>
-
-      <button type="submit" className={styles.submitButton}>
-        Search
-      </button>
     </form>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

@@ -78,7 +78,7 @@ export default buildConfig({
       })
     }
   },
-  
+
   // sharp,
   plugins: [
     // imageKitPlugin({
@@ -96,12 +96,11 @@ export default buildConfig({
       collections: {
         media: {
           uploadOption: {
-            folder: "test",
+            folder: 'test',
           },
-          savedProperties: ["url"],
+          savedProperties: ['url'],
         },
       },
     }),
   ],
-
 })

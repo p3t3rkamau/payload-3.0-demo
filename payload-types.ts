@@ -68,9 +68,7 @@ export interface User {
  */
 export interface Media {
   id: string;
-  imageKitFileId?: string | null;
-  altText?: string | null;
-  caption?: string | null;
+  alt?: string | null;
   imagekit?: {
     fileId?: string | null;
     thumbnailUrl?: string | null;

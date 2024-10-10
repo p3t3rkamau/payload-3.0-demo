@@ -1,4 +1,6 @@
+import Image from 'next/image'
 import styles from './Results.module.scss'
+import pdfIcon from '../../../public/PDF_file_icon.svg.png' // Import your PDF icon image
 
 interface Document {
   id: string
@@ -22,9 +24,12 @@ interface ResultsProps {
 
 const Results: React.FC<ResultsProps> = ({ documents, isLoading, error }) => {
   if (isLoading) {
-    return <p className={styles.loading}>Loading...</p>
+    return (
+      <div className={styles.spinnerContainer}>
+        <div className={styles.spinner}></div>
+      </div>
+    )
   }
-
   if (error) {
     return <p className={styles.error}>{error}</p>
   }
@@ -35,19 +40,37 @@ const Results: React.FC<ResultsProps> = ({ documents, isLoading, error }) => {
 
   return (
     <div className={styles.results}>
-      {/*  */}
       {documents?.map((doc) => (
         <div className={styles.document} key={doc.id}>
-          <h3>{doc.title}</h3>
-          <p>Amount: {doc.amount.toLocaleString()}</p> {/* Format with commas */}
-          <p>Currency: {doc.currency}</p>
-          <p>Date: {new Date(doc.date).toLocaleDateString()}</p>
-          {doc.recipient && <p>Recipient: {doc.recipient}</p>} {/* Optional recipient */}
-          {doc.refNo && <p>Reference No: {doc.refNo}</p>} {/* Optional refNo */}
-          {doc.numberOfPages !== undefined && <p>Number of Pages: {doc.numberOfPages}</p>} {/* Optional numberOfPages */}
-          <a href={doc.pdfUrlUpload.url} target="_blank" rel="noreferrer">
-            View PDF
-          </a>
+          <div className={styles.documentContent}>
+            <h3 className={styles.title}>{doc.title}</h3>
+            <div className={styles.details}>
+              <p className={styles.amount}>
+                Amount: {doc.amount.toLocaleString()} {doc.currency}
+              </p>
+              <p className={styles.date}>Date: {new Date(doc.date).toLocaleDateString()}</p>
+              {doc.recipient && <p className={styles.recipient}>Recipient: {doc.recipient}</p>}
+              {doc.refNo && <p className={styles.refNo}>Reference No: {doc.refNo}</p>}
+              {doc.numberOfPages !== undefined && (
+                <p className={styles.pages}>Number of Pages: {doc.numberOfPages}</p>
+              )}
+            </div>
+            <a
+              href={doc.pdfUrlUpload.url}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.viewPdf}
+            >
+              <Image
+                src={pdfIcon}
+                alt="PDF Document"
+                width={100}
+                height={150}
+                className={styles.pdfIcon}
+              />
+              View PDF
+            </a>
+          </div>
         </div>
       ))}
     </div>

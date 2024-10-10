@@ -1,80 +1,58 @@
 .form {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap; // Make the search bar responsive
+  justify-content: center; /* Center the form elements */
+  width: 100%; /* Full width of the container */
+  margin: 1rem 0; /* Add margin for spacing */
 }
 
 .searchBarContainer {
-  position: relative;
-  display: flex;
-  flex-grow: 1; // Make it adjust to screen size
+  display: flex; /* Flexbox for alignment */
+  align-items: center; /* Center align items vertically */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  width: 100%; /* Full width */
+  max-width: 600px; /* Maximum width for the search bar */
+}
+
+.select {
+  flex: 1; /* Allow the select to grow */
+  margin-right: 0.5rem; /* Spacing between select and input */
+  padding: 0.5rem; /* Padding for the select */
+  border: 1px solid #ccc; /* Border styling */
+  border-radius: 4px; /* Rounded corners */
 }
 
 .input {
-  padding: 10px;
-  width: 100%;
-  max-width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px 0 0 5px;
-  font-size: 16px;
-  @media (max-width: 768px) {
-    max-width: 200px; // Adjust width for smaller screens
-  }
-}
-
-.dropdown {
-  position: relative;
-}
-
-.dropdownButton {
-  padding: 10px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  @media (max-width: 768px) {
-    font-size: 14px; // Smaller text on mobile
-  }
-}
-
-.dropdownMenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: black;
-  color: white;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border-radius: 5px;
-  display: block; // Visible only when dropdownOpen is true
-  z-index: 1;
-}
-
-.dropdownMenu li {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.dropdownMenu li:hover {
-  background-color: #444;
+  flex: 2; /* Allow the input to grow more than the select */
+  margin-right: 0.5rem; /* Spacing between input and button */
+  padding: 0.5rem; /* Padding for the input */
+  border: 1px solid #ccc; /* Border styling */
+  border-radius: 4px; /* Rounded corners */
 }
 
 .submitButton {
-  padding: 10px;
-  margin-left: 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  @media (max-width: 768px) {
-    margin-left: 0; // No margin on mobile for better spacing
-    width: 100%;
-  }
+  padding: 0.5rem 1rem; /* Padding for the button */
+  background-color: #0070f3; /* Background color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer on hover */
+  display: flex; /* Flexbox for icon */
+  align-items: center; /* Center align icon */
 }
 
 .submitButton:hover {
-  background-color: #45a049;
+  background-color: #005bb5; /* Darker background on hover */
+}
+
+@media (max-width: 600px) {
+  .searchBarContainer {
+    flex-direction: column; /* Stack items on smaller screens */
+    align-items: stretch; /* Stretch to fill the container */
+  }
+
+  .select,
+  .input {
+    width: 100%; /* Full width on smaller screens */
+    margin: 0.5rem 0; /* Margin for spacing */
+  }
 }

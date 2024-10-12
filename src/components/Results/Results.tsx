@@ -3,6 +3,7 @@ import path from 'path'
 import styles from './Results.module.scss'
 import pdfIcon from '../../../public/PDF_file_icon.svg.png' // Import your PDF icon image
 import noResultsImage from '../../../public/noresults.png'
+import Spinner from '../Spinner'
 interface Document {
   id: string
   title: string
@@ -25,11 +26,7 @@ interface ResultsProps {
 
 const Results: React.FC<ResultsProps> = ({ documents, isLoading, error }) => {
   if (isLoading) {
-    return (
-      <div className={styles.spinnerContainer}>
-        <div className={styles.spinner}></div>
-      </div>
-    )
+    return <Spinner />
   }
   if (error) {
     return <p className={styles.error}>{error}</p>

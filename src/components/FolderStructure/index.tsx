@@ -38,7 +38,7 @@ const FolderStructure: React.FC = () => {
 
   useEffect(() => {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || '' // Default to empty string if the env is not set
-    fetch(`${baseUrl}/api/categories`)
+    fetch(`${baseUrl}/categories`)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error fetching data:', error))

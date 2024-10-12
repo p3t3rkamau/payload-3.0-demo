@@ -60,12 +60,7 @@ const Results: React.FC<ResultsProps> = ({ documents, isLoading, error }) => {
                   <p className={styles.pages}>Number of Pages: {doc.numberOfPages}</p>
                 )}
               </div>
-              <a
-                href={pdfUrl}
-                target="_blank"
-                rel="noreferrer"
-                className={styles.viewPdf}
-              >
+              <a href={pdfUrl} target="_blank" rel="noreferrer" className={styles.viewPdf}>
                 <Image
                   src={pdfIcon}
                   alt="PDF Document"

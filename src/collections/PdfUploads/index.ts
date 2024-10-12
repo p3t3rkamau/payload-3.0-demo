@@ -1,6 +1,6 @@
 // payload.config.ts
-import type { CollectionConfig } from 'payload';
-import AmountFieldServer from '../../components/AmountField/serverField'; // Adjust the import path
+import type { CollectionConfig } from 'payload'
+import AmountFieldServer from '../../components/AmountField/serverField' // Adjust the import path
 
 export const PdfUploads: CollectionConfig = {
   slug: 'Documents',
@@ -14,6 +14,11 @@ export const PdfUploads: CollectionConfig = {
       name: 'date',
       type: 'date',
       required: true,
+      admin: {
+        date: {
+          displayFormat: 'd MMM yyy',
+        },
+      },
     },
     {
       name: 'currency',
@@ -37,24 +42,24 @@ export const PdfUploads: CollectionConfig = {
       type: 'text',
       required: false,
       admin: {
-        position: 'sidebar'
-      }
+        position: 'sidebar',
+      },
     },
     {
       name: 'numberOfPages', // Optional field for number of pages
       type: 'number',
       required: false,
       admin: {
-        position: 'sidebar'
-      }
+        position: 'sidebar',
+      },
     },
     {
       name: 'refNo', // Optional field for reference number
       type: 'text',
       required: false,
       admin: {
-        position: 'sidebar'
-      }
+        position: 'sidebar',
+      },
     },
     {
       name: 'pdfUrlUpload',
@@ -69,19 +74,19 @@ export const PdfUploads: CollectionConfig = {
         // If no title is provided, generate one using refNo, amount, or fallback
         if (!data.title) {
           if (data.refNo) {
-            data.title = `Document Ref: ${data.refNo}`;
+            data.title = `Document Ref: ${data.refNo}`
           } else if (data.amount) {
-            data.title = `Document Amount: ${data.amount}`;
+            data.title = `Document Amount: ${data.amount}`
           } else {
-            data.title = 'Untitled Document'; // Fallback if neither refNo nor amount is provided
+            data.title = 'Untitled Document' // Fallback if neither refNo nor amount is provided
           }
         }
 
-        return data;
+        return data
       },
     ],
   },
   access: {
     read: (): boolean => true,
   },
-};
+}

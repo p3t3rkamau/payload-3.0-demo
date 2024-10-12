@@ -2,7 +2,7 @@ import Image from 'next/image'
 import path from 'path'
 import styles from './Results.module.scss'
 import pdfIcon from '../../../public/PDF_file_icon.svg.png' // Import your PDF icon image
-
+import noResultsImage from '../../../public/noresults.png'
 interface Document {
   id: string
   title: string
@@ -36,9 +36,19 @@ const Results: React.FC<ResultsProps> = ({ documents, isLoading, error }) => {
   }
 
   if (documents?.length === 0) {
-    return <p className={styles.noResults}>No results found.</p>
+    return (
+      <div className={styles.noResultsContainer}>
+        <Image
+          src={noResultsImage}
+          alt="No results found"
+          layout="fill" // Make the image fill the parent container
+          objectFit="contain" // Keep aspect ratio
+          className={styles.noResultsImage}
+        />
+        <p className={styles.noResultsText}>No results found.</p>
+      </div>
+    )
   }
-
   return (
     <div className={styles.results}>
       {documents?.map((doc) => {

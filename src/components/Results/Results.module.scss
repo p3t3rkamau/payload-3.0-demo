@@ -6,6 +6,7 @@
   align-items: center; // Center align the items
   padding: 1rem; // Padding for spacing
   width: 100%; // Full width
+  min-height: 100vh;
 
   @media (min-width: 600px) { // Larger screens
     flex-direction: row;
@@ -94,4 +95,27 @@
 .noResults {
   text-align: center; // Center no results message
   font-size: 1.2rem; // Larger font size
+}
+// Results.module.scss
+
+.noResultsContainer {
+  position: relative; // Position relative to use layout="fill" correctly
+  width: 100%; // Full width
+  height: 100vh; // Full viewport height
+  display: flex; // Use flexbox for centering
+  flex-direction: column; // Stack items vertically
+  align-items: center; // Center horizontally
+  justify-content: center; // Center vertically
+  text-align: center; // Center text
+}
+
+.noResultsImage {
+  max-width: 100%; // Ensure it doesn't overflow
+  max-height: 80%; // Limit height to not exceed viewport
+  margin-bottom: 1rem; // Margin below the image
+}
+
+.noResultsText {
+  font-size: 1.5rem; // Font size for no results text
+  color: #666; // Light gray text color
 }

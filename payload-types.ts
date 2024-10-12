@@ -69,11 +69,7 @@ export interface User {
 export interface Media {
   id: string;
   alt?: string | null;
-  imagekit?: {
-    fileId?: string | null;
-    thumbnailUrl?: string | null;
-    url?: string | null;
-  };
+  _key?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

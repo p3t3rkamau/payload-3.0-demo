@@ -28,7 +28,9 @@ import { Media } from './src/collections/Media'
 import { PdfUploads } from './src/collections/PdfUploads'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+// import { s3Storage } from '@payloadcms/storage-s3'
 import { imageKitPlugin } from './src/imagekitPlugin'
+import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
 import imagekitPlugin from './src/ImageKit_V_001'
 export default buildConfig({
   //editor: slateEditor({}),
@@ -87,20 +89,44 @@ export default buildConfig({
     //   urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT || '',
     //   folderPath: '/Wcs_Docs',
     // }),
-    imagekitPlugin({
-      config: {
-        publicKey: process.env.IK_PUBLIC_KEY || '',
-        privateKey: process.env.IK_PRIVATE_KEY || '',
-        endpoint: process.env.IK_ENDPOINT || '',
-      },
+    // imagekitPlugin({
+    //   config: {
+    //     publicKey: process.env.IK_PUBLIC_KEY || '',
+    //     privateKey: process.env.IK_PRIVATE_KEY || '',
+    //     endpoint: process.env.IK_ENDPOINT || '',
+    //   },
+    //   collections: {
+    //     media: {
+    //       uploadOption: {
+    //         folder: 'test',
+    //       },
+    //       savedProperties: ['url'],
+    //     },
+    //   },
+    // }),
+    uploadthingStorage({
       collections: {
-        media: {
-          uploadOption: {
-            folder: 'test',
-          },
-          savedProperties: ['url'],
-        },
+        [Media.slug]: true,
+      },
+      options: {
+        apiKey: process.env.UPLOADTHING_SECRET,
+        acl: 'public-read',
       },
     }),
+
+    // s3Storage({
+    //   collections: {
+    //     ['media.slug']: true,
+    //   },
+    //   bucket: process.env.S3_BUCKET || '',
+    //   config: {
+    //     credentials: {
+    //       accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+    //       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+    //     },
+    //     region: process.env.S3_REGION,
+    //     // ... Other S3 configuration
+    //   },
+    // }),
   ],
 })

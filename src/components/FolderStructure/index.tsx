@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Folder, File, ChevronRight, ChevronDown } from 'lucide-react'
 import styles from './index.module.scss' // Import your styles
+import Spinner from '../Spinner'
 
 interface Document {
   id: string
@@ -36,7 +37,8 @@ const FolderStructure: React.FC = () => {
   const [expandedFolders, setExpandedFolders] = useState<ExpandedFolders>({})
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/categories')
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || '' // Default to empty string if the env is not set
+    fetch(`${baseUrl}/api/categories`)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error('Error fetching data:', error))
@@ -116,7 +118,7 @@ const FolderStructure: React.FC = () => {
   return (
     <div className={styles.folderStructure}>
       <h2>Document Structure</h2>
-      {data ? renderStructure() : 'Loading...'}
+      {data ? renderStructure() : <Spinner />}
     </div>
   )
 }

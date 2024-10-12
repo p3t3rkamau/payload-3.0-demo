@@ -1,3 +1,4 @@
+'use client'
 import Results from '@/components/Results/Results'
 import { useEffect, useState } from 'react'
 

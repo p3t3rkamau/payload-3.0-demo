@@ -1,5 +1,3 @@
-// app/categories/[year]/[month]/page.tsx
-
 async function fetchDocuments(year: number, month: number) {
   const startDate = `${year}-${month.toString().padStart(2, '0')}-01`
   const endDate = `${year}-${(month + 1).toString().padStart(2, '0')}-01`

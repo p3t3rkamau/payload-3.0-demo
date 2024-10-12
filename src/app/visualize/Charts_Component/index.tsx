@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+// src/app/visualize/Charts_Component/index.tsx
+import React, { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -10,40 +11,24 @@ import {
   Legend,
 } from 'chart.js'
 
+// Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const Visualization = () => {
-  const [data, setData] = useState<any>(null)
-  const [error, setError] = useState<string | null>(null) // To handle errors
+// Define the props interface
+interface VisualizationProps {
+  data: {
+    totalAmount: number
+    monthlyData: { [key: string]: number }
+    recipientData: { [key: string]: number }
+  }
+}
 
-  useEffect(() => {
-    // Fetch data from the server
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/visualApi') // Adjust year or parameters as needed
-        if (!response.ok) {
-          console.error('Failed to fetch data')
-        }
-        const result = await response.json()
-        setData(result)
-      } catch (err) {
-        console.error(err)
-        setError('Error fetching data. Please try again later.')
-      }
-    }
+const Visualization: React.FC<VisualizationProps> = ({ data }) => {
+  const monthlyLabels = Object.keys(data.monthlyData || {})
+  const monthlyAmounts = Object.values(data.monthlyData || {})
 
-    fetchData()
-  }, [])
-
-  if (error) return <div>{error}</div> // Display error message if any
-  if (!data) return <div>Loading...</div> // Loading state while fetching data
-
-  // Prepare data for charts
-  const monthlyLabels = data.monthlyData ? Object.keys(data.monthlyData) : []
-  const monthlyAmounts = data.monthlyData ? Object.values(data.monthlyData) : []
-
-  const recipientLabels = data.recipientData ? Object.keys(data.recipientData) : []
-  const recipientAmounts = data.recipientData ? Object.values(data.recipientData) : []
+  const recipientLabels = Object.keys(data.recipientData || {})
+  const recipientAmounts = Object.values(data.recipientData || {})
 
   const chartColors = recipientLabels.map(
     (_, index) => `hsl(${(index * 360) / recipientLabels.length}, 100%, 50%)`,

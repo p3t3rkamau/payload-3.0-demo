@@ -1,12 +1,11 @@
 // app/documents/page.tsx
 import React from 'react'
-import CategoriesPage from '@/components/CategoriesPage/index'
+import FolderStructure from '@/components/FolderStructure/index'
 
 const DocumentsPage = () => {
   return (
     <div>
-      <h1>Documents Folder Structure</h1>
-      <CategoriesPage />
+      <FolderStructure />
     </div>
   )
 }

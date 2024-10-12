@@ -5,7 +5,7 @@ import styles from './SearchBar.module.scss'
 interface SearchBarProps {
   onSearch: (params: {
     title?: string
-    currency?: string
+    currency?: 'USD' | 'EUR' | 'TZS' | 'KES' | '' // Include empty string as a valid type
     date?: string
     refNo?: string
     recipient?: string
@@ -16,7 +16,7 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchType, setSearchType] = useState('title') // Default to 'title'
   const [title, setTitle] = useState('')
-  const [currency, setCurrency] = useState('')
+  const [currency, setCurrency] = useState<'USD' | 'EUR' | 'TZS' | 'KES' | ''>('') // Allow empty string
   const [date, setDate] = useState('')
   const [refNo, setRefNo] = useState('')
   const [recipient, setRecipient] = useState('')
@@ -33,7 +33,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         params.title = title
         break
       case 'currency':
-        params.currency = currency
+        params.currency = currency // currency is now used from select
         break
       case 'date':
         params.date = date
@@ -68,14 +68,25 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
           <option value="amount">Search by Amount</option>
         </select>
 
-        <input
-          type={searchType === 'date' ? 'date' : 'text'} // Date input for date search
-          placeholder={`Enter ${searchType === 'date' ? 'Date' : searchType.charAt(0).toUpperCase() + searchType.slice(1)}...`}
-          value={
-            searchType === 'title'
-              ? title
-              : searchType === 'currency'
-                ? currency
+        {searchType === 'currency' ? (
+          <select
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value as 'USD' | 'EUR' | 'TZS' | 'KES' | '')} // Cast to expected currency type
+            className={styles.input} // Use input styles for the select element
+          >
+            <option value="">Select Currency</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="TZS">TZS</option>
+            <option value="KES">KES</option>
+          </select>
+        ) : (
+          <input
+            type={searchType === 'date' ? 'date' : 'text'} // Date input for date search
+            placeholder={`Enter ${searchType === 'date' ? 'Date' : searchType.charAt(0).toUpperCase() + searchType.slice(1)}...`}
+            value={
+              searchType === 'title'
+                ? title
                 : searchType === 'date'
                   ? date
                   : searchType === 'refNo'
@@ -85,31 +96,29 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
                       : searchType === 'amount'
                         ? amount
                         : ''
-          }
-          onChange={(e) => {
-            switch (searchType) {
-              case 'title':
-                setTitle(e.target.value)
-                break
-              case 'currency':
-                setCurrency(e.target.value)
-                break
-              case 'date':
-                setDate(e.target.value)
-                break
-              case 'refNo':
-                setRefNo(e.target.value)
-                break
-              case 'recipient':
-                setRecipient(e.target.value)
-                break
-              case 'amount':
-                setAmount(e.target.value)
-                break // Handle amount input
             }
-          }}
-          className={styles.input}
-        />
+            onChange={(e) => {
+              switch (searchType) {
+                case 'title':
+                  setTitle(e.target.value)
+                  break
+                case 'date':
+                  setDate(e.target.value)
+                  break
+                case 'refNo':
+                  setRefNo(e.target.value)
+                  break
+                case 'recipient':
+                  setRecipient(e.target.value)
+                  break
+                case 'amount':
+                  setAmount(e.target.value)
+                  break // Handle amount input
+              }
+            }}
+            className={styles.input}
+          />
+        )}
 
         <button type="submit" className={styles.submitButton}>
           <FaSearch />

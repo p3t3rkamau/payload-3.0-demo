@@ -1,0 +1,61 @@
+// FolderStructure.module.scss
+
+.folderStructure {
+  font-family: Arial, sans-serif;
+  padding: 16px;
+  max-width: 800px; // Adjust this value based on your layout
+  margin: auto; // Center align the component
+
+  h2 {
+    text-align: center; // Center the heading
+    margin-bottom: 20px; // Space below the heading
+  }
+}
+
+.folder {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 8px; // Space between folders
+
+  &:hover {
+    background-color: #f0f0f0; // Light grey background on hover
+  }
+}
+
+.folderIcon {
+  margin-right: 8px; // Space between icon and folder name
+}
+
+.document {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px; // Space between documents
+  padding-left: 20px; // Indent documents under folders
+
+  &:hover {
+    background-color: #f0f0f0; // Light grey background on hover
+  }
+}
+
+.documentLink {
+  margin-left: 5px; // Space between icon and document title
+  color: #0070f3; // Link color
+  text-decoration: none; // Remove underline
+  transition: color 0.3s ease; // Smooth color transition
+
+  &:hover {
+    text-decoration: underline; // Underline on hover
+  }
+}
+
+// Responsive styles
+@media (max-width: 600px) {
+  .folderStructure {
+    padding: 8px; // Reduce padding on small screens
+  }
+
+  .folder, .document {
+    font-size: 14px; // Smaller font size on small screens
+  }
+}

@@ -1,0 +1,22 @@
+// app/components/CategoriesPage.module.scss
+ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin: 10px 0;
+  }
+  
+  li a {
+    text-decoration: none;
+    color: #0070f3;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  li a:hover {
+    text-decoration: underline;
+  }
+  

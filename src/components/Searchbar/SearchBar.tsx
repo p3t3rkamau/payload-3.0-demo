@@ -28,18 +28,25 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     const params: any = {} // Use any for flexible parameter typing
 
     // Include additional parameters based on search type
-    if (searchType === 'title') {
-      params.title = title
-    } else if (searchType === 'currency') {
-      params.currency = currency
-    } else if (searchType === 'date') {
-      params.date = date
-    } else if (searchType === 'refNo') {
-      params.refNo = refNo
-    } else if (searchType === 'recipient') {
-      params.recipient = recipient
-    } else if (searchType === 'amount') {
-      params.amount = amount
+    switch (searchType) {
+      case 'title':
+        params.title = title
+        break
+      case 'currency':
+        params.currency = currency
+        break
+      case 'date':
+        params.date = date
+        break
+      case 'refNo':
+        params.refNo = refNo
+        break
+      case 'recipient':
+        params.recipient = recipient
+        break
+      case 'amount':
+        params.amount = amount
+        break
     }
 
     onSearch(params) // Pass search values to the parent
@@ -63,7 +70,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
         <input
           type={searchType === 'date' ? 'date' : 'text'} // Date input for date search
-          placeholder={`Enter ${searchType === 'date' ? 'Date' : searchType === 'amount' ? 'Amount' : searchType.charAt(0).toUpperCase() + searchType.slice(1)}...`}
+          placeholder={`Enter ${searchType === 'date' ? 'Date' : searchType.charAt(0).toUpperCase() + searchType.slice(1)}...`}
           value={
             searchType === 'title'
               ? title
@@ -80,12 +87,26 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
                         : ''
           }
           onChange={(e) => {
-            if (searchType === 'title') setTitle(e.target.value)
-            else if (searchType === 'currency') setCurrency(e.target.value)
-            else if (searchType === 'date') setDate(e.target.value)
-            else if (searchType === 'refNo') setRefNo(e.target.value)
-            else if (searchType === 'recipient') setRecipient(e.target.value)
-            else if (searchType === 'amount') setAmount(e.target.value) // Handle amount input
+            switch (searchType) {
+              case 'title':
+                setTitle(e.target.value)
+                break
+              case 'currency':
+                setCurrency(e.target.value)
+                break
+              case 'date':
+                setDate(e.target.value)
+                break
+              case 'refNo':
+                setRefNo(e.target.value)
+                break
+              case 'recipient':
+                setRecipient(e.target.value)
+                break
+              case 'amount':
+                setAmount(e.target.value)
+                break // Handle amount input
+            }
           }}
           className={styles.input}
         />

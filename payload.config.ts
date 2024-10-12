@@ -28,14 +28,13 @@ import { Media } from './src/collections/Media'
 import { PdfUploads } from './src/collections/PdfUploads'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-// import { s3Storage } from '@payloadcms/storage-s3'
-import { imageKitPlugin } from './src/imagekitPlugin'
 import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
-import imagekitPlugin from './src/ImageKit_V_001'
+
+import { Categories } from './src/collections/Files'
 export default buildConfig({
   //editor: slateEditor({}),
   editor: lexicalEditor(),
-  collections: [Users, Media, PdfUploads],
+  collections: [Users, Media, PdfUploads, Categories],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

@@ -1,58 +1,52 @@
 .form {
   display: flex;
-  justify-content: center; /* Center the form elements */
-  width: 100%; /* Full width of the container */
-  margin: 1rem 0; /* Add margin for spacing */
+  justify-content: center;
+  margin: 1rem 0;
 }
 
 .searchBarContainer {
-  display: flex; /* Flexbox for alignment */
-  align-items: center; /* Center align items vertically */
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  width: 100%; /* Full width */
-  max-width: 600px; /* Maximum width for the search bar */
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px; // Limit the width for larger screens
+  margin: 0 auto; // Center the search bar
+  padding: 0.5rem; // Padding for better touch targets on mobile
+  border: 1px solid #ccc; // Border for better visibility
+  border-radius: 5px; // Rounded corners
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Subtle shadow
+
+  @media (max-width: 600px) {
+    flex-direction: column; // Stack elements on small screens
+  }
 }
 
 .select {
-  flex: 1; /* Allow the select to grow */
-  margin-right: 0.5rem; /* Spacing between select and input */
-  padding: 0.5rem; /* Padding for the select */
-  border: 1px solid #ccc; /* Border styling */
-  border-radius: 4px; /* Rounded corners */
+  margin-right: 0.5rem; // Space between the select and input
+  flex: 1; // Allow the select to grow
+  min-width: 120px; // Minimum width for the select
+  padding: 0.5rem; // Padding for better touch targets
+  border: 1px solid #ccc; // Border
+  border-radius: 4px; // Rounded corners
 }
 
 .input {
-  flex: 2; /* Allow the input to grow more than the select */
-  margin-right: 0.5rem; /* Spacing between input and button */
-  padding: 0.5rem; /* Padding for the input */
-  border: 1px solid #ccc; /* Border styling */
-  border-radius: 4px; /* Rounded corners */
+  flex: 3; // Allow the input to grow more than the select
+  padding: 0.5rem; // Padding for better touch targets
+  border: 1px solid #ccc; // Border
+  border-radius: 4px; // Rounded corners
+  min-width: 150px; // Minimum width for input
 }
 
 .submitButton {
-  padding: 0.5rem 1rem; /* Padding for the button */
-  background-color: #0070f3; /* Background color */
-  color: white; /* Text color */
-  border: none; /* Remove border */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Pointer on hover */
-  display: flex; /* Flexbox for icon */
-  align-items: center; /* Center align icon */
-}
+  margin-left: 0.5rem; // Space between the input and button
+  background-color: #0070f3; // Change to your theme color
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem; // Padding for better touch targets
+  cursor: pointer;
 
-.submitButton:hover {
-  background-color: #005bb5; /* Darker background on hover */
-}
-
-@media (max-width: 600px) {
-  .searchBarContainer {
-    flex-direction: column; /* Stack items on smaller screens */
-    align-items: stretch; /* Stretch to fill the container */
-  }
-
-  .select,
-  .input {
-    width: 100%; /* Full width on smaller screens */
-    margin: 0.5rem 0; /* Margin for spacing */
+  &:hover {
+    background-color: #005bb5; // Darken color on hover
   }
 }

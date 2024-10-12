@@ -42,7 +42,7 @@ export const GET = async (req: NextRequest) => {
       ...(amount ? { amount: { equals: amount } } : {}), // Add amount to query
     },
     page,
-    limit: 5,
+    limit: 6,
   }
 
   // Log the query to check what's being passed to Payload CMS

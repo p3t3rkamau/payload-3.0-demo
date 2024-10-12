@@ -70,23 +70,18 @@ const SearchDocuments = () => {
           width={100}
           height={100}
         />
-        <FaSearch
-          className={styles.searchIcon}
-          onClick={() => setIsSearchVisible((prev) => !prev)}
-        />
+        <FaSearch className={styles.searchIcon} />
       </nav>
 
-      {isSearchVisible && (
-        <div className={styles.container}>
-          <SearchBar onSearch={handleSearch} /> {/* Pass the updated handleSearch */}
-          <Results documents={documents} isLoading={isLoading} error={error} />
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage} // Change page
-          />
-        </div>
-      )}
+      <div className={styles.container}>
+        <SearchBar onSearch={handleSearch} /> {/* Pass the updated handleSearch */}
+        <Results documents={documents} isLoading={isLoading} error={error} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage} // Change page
+        />
+      </div>
     </div>
   )
 }

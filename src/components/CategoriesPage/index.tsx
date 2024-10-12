@@ -1,9 +1,15 @@
-// app/components/CategoriesPage.tsx
 import React from 'react'
 import Link from 'next/link'
 import styles from './index.module.scss'
+
+// Use the base URL from the environment variables
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+
 async function fetchCategories() {
-  const res = await fetch(`http://localhost:3000/api/categories?limit=100`)
+  const res = await fetch(`${API_URL}/api/categories`) // Use the full URL
+  if (!res.ok) {
+    console.error('Failed to fetch categories') // Handle error, e.g., throw new Error('Failed to fetch categories');
+  }
   const data = await res.json()
   return data.docs
 }

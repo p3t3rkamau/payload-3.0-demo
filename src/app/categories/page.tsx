@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 async function fetchCategories() {
-  const res = await fetch(`http://localhost:3000/api/categories?limit=100`)
+  const res = await fetch('/api/categories')
   const data = await res.json()
   return data.docs // Adjust based on your actual API response
 }

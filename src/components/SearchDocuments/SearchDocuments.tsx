@@ -70,7 +70,7 @@ const SearchDocuments = () => {
           width={100}
           height={100}
         />
-        <FaSearch className={styles.searchIcon} />
+        {/* <FaSearch className={styles.searchIcon} /> */}
       </nav>
 
       <div className={styles.container}>

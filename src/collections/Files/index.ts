@@ -24,6 +24,12 @@ export const Categories: CollectionConfig = {
       },
     },
     {
+      name: 'currency',
+      type: 'select',
+      options: ['USD', 'EUR', 'TZS', 'KES'],
+      required: true,
+    },
+    {
       name: 'documents',
       type: 'relationship',
       relationTo: 'Documents', // Assuming your Documents collection is named 'Documents'

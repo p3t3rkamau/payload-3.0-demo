@@ -108,6 +108,7 @@ export interface Category {
   id: string;
   year: number;
   month: string;
+  currency: 'USD' | 'EUR' | 'TZS' | 'KES';
   documents: (string | Document)[];
   updatedAt: string;
   createdAt: string;

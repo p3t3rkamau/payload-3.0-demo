@@ -21,6 +21,7 @@ interface Document {
 interface CategoryItem {
   year: string
   month: string
+  currency: string
   documents: Document[]
 }
 
@@ -88,29 +89,41 @@ const FolderStructure: React.FC = () => {
   const renderStructure = () => {
     if (!data || !data.docs) return null
 
-    const structure: { [key: string]: { [key: string]: Document[] } } = {}
+    const structure: { [year: string]: { [month: string]: { [currency: string]: Document[] } } } =
+      {}
 
+    // Organize data by year, month, and currency
     data.docs.forEach((item) => {
       const year = item.year
       const month = new Date(item.month).toLocaleString('default', { month: 'long' })
+      const currency = item.currency || 'Unknown' // Fallback to 'Unknown' if currency is not present
 
+      // Initialize nested structure
       if (!structure[year]) structure[year] = {}
-      if (!structure[year][month]) structure[year][month] = []
+      if (!structure[year][month]) structure[year][month] = {}
+      if (!structure[year][month][currency]) structure[year][month][currency] = []
 
-      structure[year][month].push(...item.documents)
+      structure[year][month][currency].push(...item.documents)
     })
 
+    // Render the folder structure
     return Object.entries(structure).map(([year, months]) =>
       renderFolder(
         year,
-        Object.entries(months).map(([month, docs]) =>
+        Object.entries(months).map(([month, currencies]) =>
           renderFolder(
             month,
-            docs.map((doc) => renderDocument(doc, 3)),
-            2,
+            Object.entries(currencies).map(([currency, docs]) =>
+              renderFolder(
+                currency,
+                docs.map((doc) => renderDocument(doc, 3)),
+                3, // Depth 3 for documents
+              ),
+            ),
+            2, // Depth 2 for currencies
           ),
         ),
-        1,
+        1, // Depth 1 for months
       ),
     )
   }
